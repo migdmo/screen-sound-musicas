@@ -1,11 +1,20 @@
 package br.com.alura.desafio.principal;
 
+import br.com.alura.desafio.model.Artista;
+import br.com.alura.desafio.model.TipoArtista;
+import br.com.alura.desafio.repository.ArtistaRepository;
+
 import java.util.Scanner;
 
 public class Principal {
 
-    private Scanner leitura = new Scanner(System.in);
 
+    private Scanner leitura = new Scanner(System.in);
+    private ArtistaRepository repository;
+
+    public Principal(ArtistaRepository repository) {
+        this.repository = repository;
+    }
     public void exibeMenu() {
         var menu = """
                 1- Cadastrar artistas
@@ -66,6 +75,19 @@ public class Principal {
     }
 
     private void cadastrarArtistas() {
+
+        System.out.println("nome do artista: ");
+        var nome = leitura.nextLine();
+
+        System.out.println("tipo do artista: ");
+        var tipoDigitado = leitura.nextLine();
+
+        TipoArtista tipo = TipoArtista.valueOf(tipoDigitado.trim().toUpperCase());
+
+        Artista artista = new Artista(nome.trim(), tipo);
+
+        repository.save(artista);
+
 
     }
 }
