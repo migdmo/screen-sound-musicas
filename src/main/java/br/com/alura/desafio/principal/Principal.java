@@ -1,6 +1,7 @@
 package br.com.alura.desafio.principal;
 
 import br.com.alura.desafio.model.Artista;
+import br.com.alura.desafio.model.Musica;
 import br.com.alura.desafio.model.TipoArtista;
 import br.com.alura.desafio.repository.ArtistaRepository;
 
@@ -71,6 +72,32 @@ public class Principal {
     }
 
     private void cadastrarMusicas() {
+
+        System.out.println("nome do artista: ");
+        var nomeArtista = leitura.nextLine().trim();
+
+        var artistaEncontrado = repository.buscarPorNome(nomeArtista);
+
+        if(artistaEncontrado.isPresent()){
+            var artista  = artistaEncontrado.get();
+
+            System.out.println("nome da música: ");
+            var nomeMusica = leitura.nextLine().trim();
+
+            var musica = new Musica(nomeMusica);
+
+            artista.adicionarMusica(musica);
+            repository.save(artista);
+
+        }
+
+        else{
+            System.out.println("Artista não encontrado. Cadastre o artista primeiro.");
+        }
+
+        System.out.println("Música cadastrada com sucesso!");
+
+
 
     }
 

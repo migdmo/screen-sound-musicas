@@ -14,7 +14,7 @@ public class Musica {
     @ManyToOne
     private Artista artista;
 
-    public Musica(Long id, String titulo, Artista artista) {
+    public Musica(String titulo) {
         this.titulo = titulo;
     }
 
