@@ -2,6 +2,9 @@ package br.com.alura.desafio.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "artistas")
 public class Artista {
@@ -14,6 +17,9 @@ public class Artista {
 
     @Enumerated(EnumType.STRING)
     private TipoArtista tipo;
+
+    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Musica> musicas = new ArrayList<>();
 
     public Artista(String nome, TipoArtista tipo) {
         this.nome = nome;
@@ -48,6 +54,14 @@ public class Artista {
         this.tipo = tipo;
     }
 
+    public void adicionarMusica(Musica musica){
+        musica.setArtista(this);
+        this.musicas.add(musica);
+    }
+
+    public List<Musica> getMusicas(){
+        return musicas;
+    }
     @Override
     public String toString() {
         return "Artista{" +
